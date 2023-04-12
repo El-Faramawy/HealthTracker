@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use App\Models\Desease;
+use App\Models\Doctor;
+use App\Models\Reservation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class ReservationController extends Controller
+{
+    public function index(Request $request){
+        $validator = Validator::make($request->all(),[
+            'date'=>'required',
+        ]);
+        if ($validator->fails()){
+            my_toaster($validator->errors()->get('date')[0],'error');
+            return redirect()->back();
+        }
+        $days = ["Sat" => "السبت", "Sun" => "الاحد", "Mon" => "الاثنين", "Tue" => "الثلاثاء", "Wed" => "الاربعاء", "Thu" => "الخميس", "Fri" => "الجمعة"];
+        $day_ar = $days[date('D',strtotime($request['date']))] ;
+        $months = array("Jan" => "يناير", "Feb" => "فبراير", "Mar" => "مارس", "Apr" => "أبريل", "May" => "مايو", "Jun" => "يونيو", "Jul" => "يوليو", "Aug" => "أغسطس", "Sep" => "سبتمبر", "Oct" => "أكتوبر", "Nov" => "نوفمبر", "Dec" => "ديسمبر");
+        $month_ar = $months[date("M",strtotime($request['date']))];
+        $date =  date('Y-m-d',strtotime($request['date']));
+        $doctor = Doctor::where('id',$request['doctor_id'])->first();
+        $diseases = Desease::all();
+        return view('Web.confirm-serve',
+            compact('day_ar', 'month_ar','date','doctor','diseases'));
+    }
+    //================================================================
+    public function store_reservation(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name'=>'required',
+            'phone'=>'required',
+            'gender'=>'required',
+            'age'=>'required',
+        ]);
+        if ($validator->fails()){
+            return response()->json(['messages' => $validator->errors(), 'success' => 'false']);
+        }
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id?:'';
+        Reservation::create($data);
+        $url = route('my-appointments');
+        return response()->json([
+            'message'=>'Reservation done successfully',
+            'url'=>$url,
+            'success'=>'true'
+        ]);
+    }
+}
