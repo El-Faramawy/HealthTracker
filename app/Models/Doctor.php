@@ -45,4 +45,8 @@ class Doctor extends Authenticatable
     public function degree(){
         return $this->belongsTo(Degree::class,'degree_id');
     }
+    //===========================================================
+    public function reservations(){
+        return $this->hasMany(Reservation::class,'doctor_id');
+    }
 }

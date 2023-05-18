@@ -39,6 +39,7 @@ class DoctorController extends Controller
         $months = array("Jan" => "يناير", "Feb" => "فبراير", "Mar" => "مارس", "Apr" => "أبريل", "May" => "مايو", "Jun" => "يونيو", "Jul" => "يوليو", "Aug" => "أغسطس", "Sep" => "سبتمبر", "Oct" => "أكتوبر", "Nov" => "نوفمبر", "Dec" => "ديسمبر");
         for ($i=0; $i<14;$i++){
             $reservation_count = Reservation::where('date',date('Y-m-d',strtotime('+' . $i . ' days') ))
+                ->where('doctor_id',$id)
                 ->whereIn('status',['new','accepted'])
                 ->count();
             if ($reservation_count < $doctor->day_limit){
@@ -49,6 +50,14 @@ class DoctorController extends Controller
                 $dates[$i]['month_ar'] = $months[date("M",strtotime('+' . $i . ' days'))];
             }
         }
-        return view('Web.doctor_profile',compact('doctor','dates'));
+        $reservations = Reservation::where('doctor_id',doctor()->user()->id)->get();
+
+        $reservations = $reservations->map(function($data) use ($months,$days){
+//            $data['date'] = date('Y-m-d',strtotime($data['date']));
+            $data['day_ar'] = $days[date('D',strtotime($data['date']))] ;
+            $data['month_ar'] = $months[date("M",strtotime($data['date']))];
+            return $data;
+        });
+        return view('Web.doctor_profile',compact('doctor','dates','reservations'));
     }
 }

@@ -77,4 +77,5 @@
 </script>
 
 @stack('web_js')
+@include('layouts.web.inc.pusher_js')
 

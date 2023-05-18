@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="ar">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>متابعة عاجلة</title>
+    <!-- icon -->
+    <link rel="icon" type="image/x-icon" href="img/favico.ico">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap-rtl.css">
+    <!-- MDBootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- Font Awesome Stars-->
+    <link rel="stylesheet" href="css/fontawesome-stars.css">
+    <!-- odometer -->
+    <link rel="stylesheet" href="css/odometer.min.css">
+    <!-- flatIcon -->
+    <link rel="stylesheet" href="css/flaticon.css">
+    <!-- venobox -->
+    <link rel="stylesheet" href="css/venobox.css" />
+    <!-- dropify -->
+    <link rel="stylesheet" href="css/dropify.min.css">
+    <!-- swiper -->
+    <link rel="stylesheet" href="css/swiper.css">
+    <!-- select2 -->
+    <link rel="stylesheet" href="css/select2.css">
+    <!-- animate -->
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- img gallery -->
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <!-- Custom style  -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- arabic style  -->
+    <!-- <link rel="stylesheet" href="css/ar.css"> -->
+    <!-- fonts  -->
+<!--    <link href="https://fonts.تصفحogleapis.com/css?family=Cairo&display=swap" rel="stylesheet">-->
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .chat {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .card {
+            height: 600px;
+            border-radius: 15px !important;
+            background-color: rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .msg_card_body {
+            overflow-y: auto;
+        }
+
+        .card-header {
+            border-radius: 15px 15px 0 0 !important;
+            border-bottom: 0 !important;
+        }
+
+        .card-footer {
+            border-radius: 0 0 15px 15px !important;
+            border-top: 0 !important;
+        }
+
+        .type_msg {
+            width: 700px;
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border: 0 !important;
+            border-radius: 15px !important;
+            color: white !important;
+            height: 60px !important;
+            overflow-y: auto;
+        }
+
+        .type_msg:focus {
+            box-shadow: none !important;
+            outline: 0px !important;
+        }
+
+        .attach_btn {
+            width: 65px;
+            border-radius: 15px !important;
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border: 0 !important;
+            color: white !important;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .send_btn {
+            width:65px ;
+            margin-right: 10px;
+            border-radius: 15px !important;
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border: 0 !important;
+            color: white !important;
+            cursor: pointer;
+        }
+
+        .user_img {
+            height: 60px;
+            width: 60px;
+            border: 1.5px solid #f5f6fa;
+        }
+
+        .user_img_msg {
+            height: 40px;
+            width: 40px;
+            border: 1.5px solid #f5f6fa;
+        }
+
+        .img_cont {
+            position: relative;
+            height: 70px;
+            width: 70px;
+            margin-right: 20px;
+        }
+
+        .img_cont_msg {
+            height: 40px;
+            width: 40px;
+        }
+
+        .online_icon {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: #4cd137;
+            border-radius: 50%;
+            bottom: 8px;
+            right: 8px;
+            border: 1.5px solid white;
+        }
+
+        .offline {
+            background-color: #c23616 !important;
+        }
+
+        .user_info {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+        }
+
+        .user_info span {
+            font-size: 20px;
+            color: white;
+        }
+
+        .user_info p {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .video_cam {
+            position: absolute;
+            left: 50px;
+            margin-top: 20px;
+        }
+
+        .video_cam span {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .msg_cotainer {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 10px;
+            border-radius: 25px;
+            background-color: #82ccdd;
+            padding: 10px;
+            position: relative;
+        }
+
+        .msg_cotainer_send {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: 10px;
+            border-radius: 25px;
+            background-color: #78e08f;
+            padding: 10px;
+            position: relative;
+        }
+
+        .msg_time {
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 10px;
+        }
+
+        .msg_time_send {
+            position: absolute;
+            right: 0;
+            bottom: -15px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 10px;
+        }
+
+        .msg_head {
+            position: relative;
+        }
+
+        #action_menu_btn {
+            position: absolute;
+            right: 15px;
+            top: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .action_menu {
+            z-index: 1;
+            position: absolute;
+            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 15px;
+            top: 30px;
+            right: 15px;
+            display: none;
+        }
+
+        .action_menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .action_menu ul li {
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+        }
+
+        .action_menu ul li i {
+            padding-right: 10px;
+        }
+
+        .action_menu ul li:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* width */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+
+        /* Track */
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+
+        /* Handle */
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+
+        /* Handle on hover */
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        @media(max-width: 576px) {
+            .contacts_card {
+                margin-bottom: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!-- ================ spinner ================= -->
+<div id="loader-wrapper">
+    <div id="loader">
+        <div class="loader-inner"></div>
+    </div>
+</div>
+<!-- ================ spinner ================= -->
+<!-- ================ header ================= -->
+<div class="container-fluid  mb-lg-0 topHeader"></div>
+<div id="Header" class="main-header sticky-top"></div>
+<!-- ================ /header ================= -->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////             /////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////          //////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+
+<!-- TABS-1
+          ============================================= -->
+<section id="tabs-1" class="pb-5 tabs-section division">
+    <div class="container">
+        <!-- TABS NAVIGATION -->
+        <div id="tabs-nav" class="list-group text-center">
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <!-- TAB-1 LINK -->
+                <li class="nav-item icon-xs mb-2" >
+                    <a class="nav-link active" id="tab1-list" data-toggle="pill" href="#tab-1" role="tab" aria-controls="tab-1"
+                       aria-selected="true" >
+                        <span class="flaticon-083-stethoscope"></span> مراسلة الدكتور
+                    </a>
+                </li>
+                <!-- TAB-2 LINK -->
+                <li class="nav-item icon-xs mb-2" style="b">
+                    <a class="nav-link" id="tab2-list" data-toggle="pill" href="#tab-2" role="tab" aria-controls="tab-2"
+                       aria-selected="false">
+                        <span class="flaticon-005-blood-donation-3"></span>متابعة مع الدكتور
+                    </a>
+                </li>
+
+            </ul>
+        </div> <!-- END TABS NAVIGATION -->
+        <!-- TABS CONTENT -->
+        <div class="tab-content p-0" id="pills-tabContent">
+            <!-- TAB-1 CONTENT -->
+            <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab1-list">
+                <section class="contact-section ">
+                    <div class="row justify-content-center h-100">
+                        <div class="col-md-10 col-xl-10 chat">
+                            <div class="card">
+                                <div class="card-header msg_head">
+                                    <div class="d-flex bd-highlight">
+                                        <div class="img_cont" >
+                                            <img src="img/doctors/doctor1.png" class="rounded-circle user_img">
+                                            <span class="online_icon"></span>
+                                        </div>
+                                        <div class="user_info">
+                                            <span>د/ أحمد علي زهره</span>
+                                            <p>نشط الأن</p>
+                                        </div>
+                                        <div class="video_cam" >
+                                            <span><i class="fas fa-phone"></i></span>
+                                            <span><i class="fas fa-video"></i></span>
+
+                                        </div>
+                                    </div>
+                                    <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                                    <div class="action_menu">
+                                        <ul>
+                                            <li><i class="fas fa-user-circle"></i> View profile</li>
+                                            <li><i class="fas fa-users"></i> Add to close friends</li>
+                                            <li><i class="fas fa-plus"></i> Add to group</li>
+                                            <li><i class="fas fa-ban"></i> Block</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body msg_card_body">
+                                    <div class="d-flex justify-content-end mb-4 ">
+                                        <div class="msg_cotainer_send">
+                                            السلام عليكم و رحمة الله و بركاته..
+                                            <span class="msg_time_send">8:55 ص , اليوم</span>
+                                        </div>
+                                        <div class="img_cont_msg">
+                                            <img src="img/users-photo/user-default.jpg" class="rounded-circle user_img_msg">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-4">
+                                        <div class="img_cont_msg">
+                                            <img src="img/doctors/doctor1.png" class="rounded-circle user_img_msg">
+                                        </div>
+                                        <div class="msg_cotainer">
+                                            و عليكم السلام و رحمة الله وبركاته..
+                                            <span class="msg_time">9:00 ص , اليوم</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mb-4">
+                                        <div class="msg_cotainer_send">
+                                            ممكن استفسار بعد إذنك يا دكتور ؟
+                                            <span class="msg_time_send">9:05 ص , اليوم</span>
+                                        </div>
+                                        <div class="img_cont_msg">
+                                            <img src="img/users-photo/user-default.jpg" class="rounded-circle user_img_msg">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-4">
+                                        <div class="img_cont_msg">
+                                            <img src="img/doctors/doctor1.png" class="rounded-circle user_img_msg">
+                                        </div>
+                                        <div class="msg_cotainer">
+                                            اتفضل..
+                                            <span class="msg_time">9:07 ص , اليوم</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mb-4">
+                                        <div class="msg_cotainer_send">
+                                            درجة الحرارة الطبيعية لجسم الإنسان؟
+                                            <span class="msg_time_send">9:10 ص , اليوم</span>
+                                        </div>
+                                        <div class="img_cont_msg">
+                                            <img src="img/users-photo/user-default.jpg" class="rounded-circle user_img_msg">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-4">
+                                        <div class="img_cont_msg">
+                                            <img src="img/doctors/doctor1.png" class="rounded-circle user_img_msg">
+                                        </div>
+                                        <div class="msg_cotainer">
+                                            درجة حرارة جسم الانسان السليم هي 37 درجة.
+                                            <span class="msg_time">9:12 ص , اليوم</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mb-4">
+                                        <div class="msg_cotainer_send">تمام شكرا لحضرتك يا دكتور
+                                            <span class="msg_time_send">9:10 ص , اليوم</span>
+                                        </div>
+                                        <div class="img_cont_msg">
+                                            <img src="img/users-photo/user-default.jpg" class="rounded-circle user_img_msg">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-start mb-4">
+                                        <div class="img_cont_msg">
+                                            <img src="img/doctors/doctor1.png" class="rounded-circle user_img_msg">
+                                        </div>
+                                        <div class="msg_cotainer">
+                                            العفو يا فندم
+                                            <span class="msg_time">9:12 ص , اليوم</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text attach_btn"><i class="fas fa-paperclip" style="margin-right: 13px"></i></span>
+                                        </div>
+                                        <textarea name="" class="form-control type_msg" placeholder="اكتب رسالتك..."></textarea>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text send_btn"><i class="fas fa-location-arrow"style="margin-right: 13px"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div> <!-- END TAB-1 CONTENT -->
+            <!-- TAB-2 CONTENT -->
+            <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2-list">
+                <section class="contact-section ">
+                    <div class="container">
+                        <div class="row my-5">
+                            <div class="col-lg-12 left-contact-col">
+                                <div class="contact-area">
+                                    <div style="margin-right: 15px" class="contact-content" >
+                                        <h3>متابعة حالة المريض</h3>
+                                    </div>
+                                    <div class="contact-form">
+                                        <form id="contactForm">
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-8">
+                                                    <div class="form-group">
+                                                        <input type="text" name="temp" id="temp" class="form-control" required
+                                                               placeholder="ادخل درجة الحرارة">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8">
+                                                    <div class="form-group">
+                                                        <input type="text" name="heart" id="heart" required
+                                                               class="form-control" placeholder="ادخل مقياس نبض القلب">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="form-group">
+                      <textarea name="message" class="form-control" id="message" cols="30" rows="6" required
+                                data-error="Write your message" placeholder="اكتب ما تشعر به"></textarea>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="send-btn">
+                                                        <button type="submit" class="default-btn">
+                                                            إرسال إلي الطبيب
+                                                            <i class="flaticon-right"></i>
+                                                            <span></span>
+                                                        </button>
+                                                    </div>
+                                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> <!-- END TAB-2 CONTENT -->
+            <!-- TAB-3 CONTENT -->
+        </div> <!-- END TABS CONTENT -->
+    </div> <!-- End container -->
+</section> <!-- END TABS-1 -->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////  footer  //////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<div id="footer"></div>
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////JavaScript/////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/mdb.min.js"></script>
+<script src="js/smooth-scroll.min.js"></script>
+<script src="js/swiper.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/dropify.min.js"></script>
+<script src="js/jquery.appear.min.js"></script>
+<script src="js/odometer.min.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
+<!-- venobox js -->
+<script src="js/venobox.min.js"></script>
+<script src="js/select2.js"></script>
+<script src="js/fontawesome-pro.js"></script>
+<script src="js/stars.js"></script>
+<script src="js/main.js"></script>
+<script>
+    $('#Header').load("Header.html");
+    $('#footer').load("Footer.html");
+    $('.topHeader').load("top-header.html")
+</script>
+<script>
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        slidesPerView: 'auto',
+        // spaceBetween: 10,
+        speed: 1500,
+        loop: true,
+        freeMode: true,
+        loopedSlides: 5, //looped slides should be the same
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+        loop: true,
+        effect: 'fade',
+        keyboard: {
+            enabled: true,
+        },
+        speed: 1500,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        loopedSlides: 5, //looped slides should be the same
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+            swiper: galleryThumbs,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'progressbar',
+        },
+    });
+</script>
+<script>
+    /* 14. VENOBOX JS */
+    $('.venobox').venobox({
+        numeratio: true,
+        titleattr: 'data-title',
+        spinner: 'cube-grid',
+        spinColor: '#fff'
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#action_menu_btn').click(function(){
+            $('.action_menu').toggle();
+        });
+    });
+</script>
+
+</body>
+
+</html>

@@ -8,7 +8,11 @@
 
             <form action="{{url('store_reservation')}}" id="form" method="post">
                 @csrf
-                <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
+                @if($type=='doctor')
+                    <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
+                @else
+                    <input type="hidden" name="hospital_id" value="{{$hospital->id}}">
+                @endif
                 <input type="hidden" name="date" value="{{$date}}">
                 <div class="additional-informations mt-4  ">
                     <h5 class="text-center py-3">معلومات إضافية {{--<small>( اختياري )</small>--}}</h5>
@@ -56,9 +60,15 @@
                                             class="fad fa-stethoscope"></i></span>
                                     العمر </label>
                                 <select class=" select2" name="age">
-                                    @for($i = $doctor->age_from; $i <= $doctor->age_to ; $i++)
-                                        <option value="{{$i}}"> {{$i}}</option>
-                                    @endfor
+                                    @if($type=='doctor')
+                                        @for($i = $doctor->age_from; $i <= $doctor->age_to ; $i++)
+                                            <option value="{{$i}}"> {{$i}}</option>
+                                        @endfor
+                                    @else
+                                        @for($i = $hospital->age_from; $i <= $hospital->age_to ; $i++)
+                                            <option value="{{$i}}"> {{$i}}</option>
+                                        @endfor
+                                    @endif
                                 </select>
                             </div>
                         </div>

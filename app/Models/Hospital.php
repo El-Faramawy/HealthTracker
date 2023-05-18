@@ -10,6 +10,10 @@ class Hospital extends Model
     use HasFactory;
 
     protected $appends =['name','location'];
+
+    public function getImageAttribute(){
+        return  get_file($this->attributes['image']);
+    }
     //===================  name ===========================
     public function getNameAttribute(){
         $name = $this->attributes['name_ar'];
@@ -31,6 +35,10 @@ class Hospital extends Model
         elseif(request()->lang && request()->lang != null)
             $location = $this->attributes['location_'.request()->lang];
         return $location;
+    }
+    //===========================================================
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id');
     }
 
 }

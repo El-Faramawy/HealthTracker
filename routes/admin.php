@@ -37,6 +37,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('user_profile/{id}','UserController@user_profile')->name('user_profile');
         Route::post('multi_delete_users','UserController@multiDelete')->name('users.multiDelete');
 
+        ################################### doctors ##########################################
+        Route::resource('doctors','DoctorController');
+        Route::get('block_doctor/{id}','DoctorController@block')->name('doctors.block');
+        Route::post('multi_delete_doctors','DoctorController@multiDelete')->name('doctors.multiDelete');
+
+        ################################### hospitals ##########################################
+        Route::resource('hospitals','DoctorController');
+        Route::post('multi_delete_hospitals','DoctorController@multiDelete')->name('hospitals.multiDelete');
+
         ################################### Branch ##########################################
         Route::resource('branches','BranchController');
         Route::post('multi_delete_branches','BranchController@multiDelete')->name('branches.multiDelete');
@@ -78,12 +87,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::resource('menus','MenuController');
         Route::post('multi_delete_menus','MenuController@multiDelete')->name('menus.multiDelete');
 
-        ################################### orders ##########################################
-        Route::resource('orders','OrderController');
-        Route::get('change_order_status/{id}','OrderController@change_order_status')->name('change_order_status');
-        Route::post('update_order_status','OrderController@update_order_status')->name('update_order_status');
-        Route::get('order_details/{id}','OrderController@order_details')->name('order_details');
-        Route::post('multi_delete_orders','OrderController@multiDelete')->name('orders.multiDelete');
+        ################################### reservations ##########################################
+        Route::resource('reservations','ReservationController');
+        Route::get('change_reservation_status/{id}','ReservationController@change_reservation_status')->name('change_reservation_status');
+        Route::post('update_reservation_status','ReservationController@update_reservation_status')->name('update_reservation_status');
+        Route::get('reservation_details/{id}','ReservationController@reservation_details')->name('reservation_details');
+        Route::post('multi_delete_reservations','ReservationController@multiDelete')->name('reservations.multiDelete');
 
         ################################### notifications ##########################################
         Route::resource('notifications','NotificationController');

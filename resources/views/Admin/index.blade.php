@@ -6,4 +6,5 @@
 @endsection
 @push('admin_js')
 
+
 @endpush

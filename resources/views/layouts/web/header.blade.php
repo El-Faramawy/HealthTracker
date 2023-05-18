@@ -17,6 +17,7 @@
                         الرئيسية
                     </a>
                 </li>
+                @if(!doctor()->check())
                 <li class="nav-item menu-item">
                     <a class="nav-link " href="{{url('doctors')}}">
                         <span class="mn_icon mn_find"></span>
@@ -27,6 +28,13 @@
                         <span class="mn_icon mn_find"></span>
                         إبحث عن مستشفي </a>
                 </li>
+                @else
+                    <li class="nav-item menu-item">
+                        <a class="nav-link " href="{{url('my-appointments')}}">
+                            <span class="mn_icon mn_find"></span>
+                            مواعيدى </a>
+                    </li>
+                @endif
                 <!--        <li class="nav-item menu-item">-->
                 <!--          <a class="nav-link " href="hire.html"> خدماتنا    </a> -->
                 <!--        </li>-->

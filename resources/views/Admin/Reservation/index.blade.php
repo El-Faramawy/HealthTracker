@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('page_title') الطلبات @endsection
+@section('page_title') الحجوزات @endsection
 <!-- INTERNAL SELECT2 CSS -->
 <link href="{{url('Admin')}}/assets/plugins/select2/select2.min.css" rel="stylesheet"/>
 @section('content')
@@ -7,7 +7,7 @@
         <div class="col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">الطلبات</h3>
+                    <h3 class="card-title">الحجوزات</h3>
                     <div class="mr-auto pageheader-btn">
                         @if(in_array(40,admin()->user()->permission_ids))
                             <a href="#"  id="multiDeleteBtn" class="btn btn-danger btn-icon text-white">
@@ -52,7 +52,7 @@
                         <div class="card">
                             <div class="card-status bg-blue br-tr-7 br-tl-7"></div>
                             <div class="card-header">
-                                <div class="card-title">الطلبات حسب الحالة</div>
+                                <div class="card-title">الحجوزات حسب الحالة</div>
                                 <div class="card-options">
                                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
@@ -83,17 +83,17 @@
                             <tr>
                                 <th class="text-white"><input type="checkbox" id="master"></th>
                                 <th class="text-white">#</th>
+                                <th class="text-white">المستشفى</th>
+                                <th class="text-white">الطبيب</th>
                                 <th class="text-white">المستخدم</th>
                                 <th class="text-white">تاريخ الطلب</th>
-                                <th class="text-white">الماركة</th>
-                                <th class="text-white">الاصدار</th>
-                                <th class="text-white">الموديل</th>
-{{--                                <th class="text-white"> قطعة الغيار</th>--}}
-                                <th class="text-white">رقم الجوال</th>
-                                <th class="text-white">رقم الهيكل</th>
-                                <th class="text-white">رقم جهة الاصلاح</th>
-                                <th class="text-white">الاجمالى</th>
-                                <th class="text-white">التفاصيل</th>
+                                <th class="text-white">تاريخ الحجز</th>
+                                <th class="text-white">الاسم</th>
+                                <th class="text-white">النوع</th>
+                                <th class="text-white">رقم الهاتف</th>
+                                <th class="text-white">صورة</th>
+                                <th class="text-white">ملاحظات</th>
+{{--                                <th class="text-white">التفاصيل</th>--}}
                                 <th class="text-white">الحالة</th>
                                 <th class="text-white">حذف</th>
                             </tr>
@@ -119,7 +119,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2>الطلبات</h2>
+                    <h2>الحجوزات</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" style="cursor: pointer" data-dismiss="modal" aria-label="Close">
@@ -154,23 +154,23 @@
         var  columns =[
             {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
             {data: 'id', name: 'id'},
+            {data: 'hospital', name: 'hospital'},
+            {data: 'doctor', name: 'doctor'},
             {data: 'user', name: 'user'},
             {data: 'created_at', name: 'created_at'},
-            {data: 'category', name: 'category'},
-            {data: 'sub_category', name: 'sub_category'},
-            {data: 'brand', name: 'brand'},
-            // {data: 'part', name: 'part'},
+            {data: 'date', name: 'date'},
+            {data: 'name', name: 'name'},
+            {data: 'gender', name: 'gender'},
             {data: 'phone', name: 'phone'},
-            {data: 'structure_no', name: 'structure_no'},
-            {data: 'fix_no', name: 'fix_no'},
-            {data: 'total', name: 'total'},
-            {data: 'details', name: 'details'},
+            {data: 'image', name: 'image'},
+            {data: 'notes', name: 'notes'},
+            // {data: 'details', name: 'details'},
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ];
 
     </script>
-    @include('layouts.admin.inc.ajax',['url'=>'orders'])
+    @include('layouts.admin.inc.ajax',['url'=>'reservations'])
 
     <script>
 
@@ -187,10 +187,10 @@
 
         $(document).on('click',".status_submit",function (e) {
             e.preventDefault();
-            var id = $('#order_id').val()
+            var id = $('#reservation_id').val()
             var status = $(this).attr('status')
 
-            var url = "{{route('update_order_status')}}?id="+id+"&status="+status;
+            var url = "{{route('update_reservation_status')}}?id="+id+"&status="+status;
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -250,11 +250,11 @@
             var order_to = $('#order_to').val();
             var status = $('#status').val();
             var url = '';
-            if ('{{$id}}' == '') {
-                url = window.location.href+"?order_from=" + order_from + "&order_to=" + order_to + "&status=" + status;
-            }else{
+            {{--if ('{{$id}}' == '') {--}}
+            {{--    url = window.location.href+"?order_from=" + order_from + "&order_to=" + order_to + "&status=" + status;--}}
+            {{--}else{--}}
                 url = window.location.href+"&order_from=" + order_from + "&order_to=" + order_to + "&status=" + status;
-            }
+            // }
             // alert(url);
             $('#exportexample').DataTable().ajax.url(url).draw();
         }

@@ -89,19 +89,22 @@ class AuthController extends Controller
             return apiResponse(null,$validator->errors(),'422');
         }
 
-        $data = $request->only('email','password');
-
+        $credentials = ['email' => request('email'), 'password' => request('password'),'block' => 'no'];
         $user = User::where('email',$request->email)->count();
         $doctor = Doctor::where('email',$request->email)->count();
-
+//        return $data;
         if ($user > 0){
-            \auth()->attempt($data);
-            return response()->json(['message'=>'login successfully ','success'=>'true']);
+            if (auth()->attempt($credentials))
+                return response()->json(['message'=>'login successfully ','success'=>'true']);
+            else
+                return response()->json(['messages'=>['invalid credentials register please '],'success'=>'false']);
         }elseif ($doctor > 0){
-            doctor()->attempt($data);
-            return response()->json(['message'=>'login successfully ','success'=>'true']);
+            if ( doctor()->attempt($credentials))
+                return response()->json(['message'=>'login successfully ','success'=>'true']);
+            else
+                return response()->json(['messages'=>['invalid credentials register please '],'success'=>'false']);
         }else{
-            return response()->json(['message'=>'invalid credentials register please ','success'=>'false']);
+            return response()->json(['messages'=>['invalid credentials register please '],'success'=>'false']);
         }
     }
     //===================================================================

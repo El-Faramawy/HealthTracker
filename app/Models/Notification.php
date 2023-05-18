@@ -11,4 +11,5 @@ class Notification extends Model
     public function getCreatedAtAttribute(){
         return date('Y-m-d H:i:s' ,strtotime($this->attributes['created_at'] . '+2 hour'));
     }
+
 }
